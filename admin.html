@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <script type="module" src="./admin.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>CinéTrack/Administration</title>
+
+</head>
+
+<body class="">
+
+  <div class="background-container">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+
+  </div>
+
+
+    <header class="bg-black w-full h-auto ">
+        <h1 class="">
+            <img src="img/LogoAdmin.png" class=" w-50 h-20" alt="CinéTrack">
+        </h1>
+
+    </header>
+
+    <main>
+
+        <h1 class="text-white text-3xl font-bold">Adminitration</h1>
+        <p class="text-white">Gérez vos films et vos séries</p>
+
+    <div class="flex">
+      <div class=" bg-gray-800">
+            <h2 class="text-xl font-bold text-white">Films et séries</h2>
+
+            <div class="filter">
+
+            <input type="search" id="searshBar" placeholder=" search ...">
+
+            <select type="select">
+
+            </select>
+       </div>     
+
+        
+        <table class="">
+
+            <thead>
+            <tr class="headTable bg-gray-600 ">
+                <th class="w-80">contenu</th>
+                <th class="w-20">type</th>
+                <th class="w-20">Année</th>
+                <th class="w-40">Actions</th>
+            </tr>
+            </thead>
+
+
+            <tbody>
+            <tr>
+            <td class="align-top " id="adminCard" >
+            <br><h3 class="align-top" id="titleCard"></h3>
+            </td> 
+            <td class="align-top " id="typeCard" ></td>
+            <td class="align-top " id="dateCard" ></td>
+            </tr>
+            </tbody>
+
+            
+        </table>
+     </div>
+
+     <aside>
+
+        <h2 class="text-white text-2xl font-bold">Ajouter un contenu</h2>
+
+        <table>
+          <tr>
+            <h3 class="text-white text-xl font-bold">title</h3>
+            <td><input type="text" placeholder="enter title"></td>
+          </tr>
+
+          <tr>
+            <h3 class="text-white text-xl font-bold">Type</h3>
+            <th><select type="text" placeholder="enter title"></td>
+          </tr>
+
+        </table>
+
+
+     </aside>
+    </div>
+
+    </main>
+
+    <footer>
+
+    </footer>
+    
+</body>
+
+</html>
