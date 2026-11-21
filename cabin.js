@@ -1,71 +1,49 @@
-const cardsPerPage = 6;
-const dataContainer = document.getElementById('cardsContainer');
-const pagination = document.getElementById('pagination');
-const prevButton = document.getElementById('prevBtn');
-const nextButton = document.getElementById('nextBtn');
-const pageNumbers = document.getElementById('page-numbers');
-const pageLinks = document.querySelectorAll('.page-link');
-
-let cards =
-	Array.from(dataContainer.getElementsByClassName('card'));
-
-let totalPages = Math.ceil(cards.length / cardsPerPage);
+const adminCard = document.getElementById("adminCard");
+const container = adminCard ?? document.getElementById("cardsContainer");
+const cardsPerPage = adminCard ? 5 : 6;
+const prevButton = document.getElementById("prevBtn");
+const nextButton = document.getElementById("nextBtn");
+const pageNumbers = document.getElementById("page-numbers");
 let currentPage = 1;
 
-function displayPage(page) {
-	const startIndex = (page - 1) * cardsPerPage;
-	const endIndex = startIndex + cardsPerPage;
-	cards.forEach((card, index) => {
-		if (index >= startIndex && index < endIndex) {
-			card.style.display = 'block';
-		} else {
-			card.style.display = 'none';
-		}
-	});
+function displayPage() {
+  const cards = Array.from(container.getElementsByClassName("card"));
+  const totalPages = Math.ceil(cards.length / cardsPerPage);
+  const start = (currentPage - 1) * cardsPerPage;
+  const columns = document.querySelectorAll("#typeCard, #dateCard, #admiButton, #deleteButton");
+
+  cards.forEach((card, index) => {
+    const display = index >= start && index < start + cardsPerPage ? "" : "none";
+    card.style.display = display;
+    columns.forEach(column => {
+      column.children[index].style.display = display;
+    });
+  });
+
+  pageNumbers.textContent = totalPages ? `Page ${currentPage} of ${totalPages}` : "Aucun résultat";
+  prevButton.disabled = currentPage <= 1;
+  nextButton.disabled = currentPage >= totalPages;
 }
 
-function updatePagination() {
-	pageNumbers.textContent = `Page ${currentPage} of ${totalPages}`;
-	prevButton.disabled = currentPage === 1;
-	nextButton.disabled = currentPage === totalPages;
-	pageLinks.forEach((link) => {
-		const page = parseInt(link.getAttribute('data-page'));
-		link.classList.toggle('active', page === currentPage);
-	});
-}
-
-prevButton.addEventListener('click', () => {
-	if (currentPage > 1) {
-		currentPage--;
-		displayPage(currentPage);
-		updatePagination();
-	}
+prevButton.addEventListener("click", () => {
+  currentPage--;
+  displayPage();
 });
 
-nextButton.addEventListener('click', () => {
-	if (currentPage < totalPages) {
-		currentPage++;
-		displayPage(currentPage);
-		updatePagination();
-	}
-});
-
-pageLinks.forEach((link) => {
-	link.addEventListener('click', (e) => {
-		e.preventDefault();
-		const page = parseInt(link.getAttribute('data-page'));
-		if (page !== currentPage) {
-			currentPage = page;
-			displayPage(currentPage);
-			updatePagination();
-		}
-	});
+nextButton.addEventListener("click", () => {
+  currentPage++;
+  displayPage();
 });
 
 export function refreshPagination() {
-  cards = Array.from(dataContainer.getElementsByClassName("card"));
-  totalPages = Math.ceil(cards.length / cardsPerPage);
   currentPage = 1;
-  displayPage(currentPage);
-  updatePagination();
+  displayPage();
+}
+
+export function debounce(callback, delay = 250) {
+  let timer;
+  return () => {
+    clearTimeout(timer);
+    timer = setTimeout(callback, delay);
+  };
 }
